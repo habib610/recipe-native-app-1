@@ -7,7 +7,8 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CategoriesScreen from './screens/CategoriesScreen';
-import Navigation from './navigation/Navigation';
+import BottomTabNavigator from './navigation/Navigation';
+
 const Stack = createStackNavigator();
 export default function App() {
 let [fontsLoaded] = useFonts({
@@ -19,7 +20,7 @@ let [fontsLoaded] = useFonts({
     return <AppLoading />;
   }
   return (
-		  <Navigation />
+		  <BottomTabNavigator />
   );
 }
 

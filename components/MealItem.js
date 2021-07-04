@@ -11,13 +11,13 @@ import {
 import Colors from "../constant/Colors";
 
 const MealItem = ({ itemData, onSelect }) => {
-	console.log(itemData.title)
+
 	return (
 		<View style={styles.container}>
-		<TouchableOpacity style={{justifyContent: "center"}}>
+		<TouchableOpacity style={{justifyContent: "center"}} onPress={onSelect}>
 				<ImageBackground style={styles.imgBg} resizeMode="cover" source={{uri: itemData.steps}} >
 					<View style={styles.titleContainer}>
-					<Text style={styles.title}>{itemData.title}</Text>
+					<Text numberOfLines={1} style={styles.title}>{itemData.title}</Text>
 					</View>
 				</ImageBackground>
 				<View style={styles.bottomContainer}>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.grey2,
 		marginTop: 10,
 		marginHorizontal: 10,
-		borderRadius: 10
+		borderRadius: 20
 	},
 	imgBg:{
 		height: 160,
@@ -46,9 +46,10 @@ const styles = StyleSheet.create({
 		backgroundColor: Colors.grey2,
 		resizeMode: "cover",
 		justifyContent: "flex-end",
+		borderRadius: 20
 	},
 	titleContainer: {
-		backgroundColor: "rgba(0,0,0,.3)",
+		backgroundColor: "rgba(0,0,0,.4)",
 		paddingVertical: 5,
 		paddingHorizontal: 30,
 	},

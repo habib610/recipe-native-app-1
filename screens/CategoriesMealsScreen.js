@@ -6,10 +6,9 @@ import { MEALS } from '../data/16.2 dummy-data';
 const CategoriesMealsScreen = ({navigation, route}) => {
 	const itemId = route.params.itemData.item.id
 	const mealData = MEALS.filter(meal => meal.categoryIds.indexOf(itemId) >= 0);
-	console.log(mealData)
 	const renderMeal = (itemData) => {
 		return (
-			<MealItem itemData={itemData.item} />
+			<MealItem onSelect={()=> navigation.navigate('Details', {itemData: itemData.item})} itemData={itemData.item} />
 		)
 	}
 	return (
