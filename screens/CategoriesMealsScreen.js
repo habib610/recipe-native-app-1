@@ -12,11 +12,13 @@ const CategoriesMealsScreen = ({navigation, route}) => {
 		)
 	}
 	return (
+		<View style={{backgroundColor: "white", flex: 1}}>
 		<FlatList 
 		data={mealData}
 		keyExtractor={(item, index)=> item.id}
 		renderItem={renderMeal}
 		/>
+		</View>
 	);
 };
 const styles = StyleSheet.create({

@@ -337,3 +337,4 @@ export const MEALS = [
 	)
   ];
   
+  export const FAVFOOD = []
