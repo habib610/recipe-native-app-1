@@ -3,12 +3,9 @@ import { StyleSheet, ScrollView, View, Text, Button } from 'react-native';
 import MealItem from '../components/MealItem';
 import Colors from '../constant/Colors';
 const MealDetailsScreen = ({navigation, route}) => {
-	// console.log(route.params.itemData)
+
 	const item  = route.params.itemData
-	console.log(item)
-	const renderList = (item) => {
-		return 
-	}
+
 	return (
 		<ScrollView style={{backgroundColor: "white", flex: 1}}>
 			<View>

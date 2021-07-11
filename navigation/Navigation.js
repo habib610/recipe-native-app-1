@@ -7,6 +7,8 @@ import CategoriesScreen from '../screens/CategoriesScreen';
 import CategoriesMealsScreen from '../screens/CategoriesMealsScreen';
 import MealDetailsScreen from '../screens/MealDetailsScreen';
 import Colors from '../constant/Colors';
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -17,80 +19,113 @@ import CustomHeader from '../components/CustomHeader';
 import FavoriteScreen from '../screens/FavoriteScreen';
 import { Ionicons } from '@expo/vector-icons';
 import FiltersScreen from '../screens/FiltersScreen';
+import { addFavoriteAction } from "../Store/Actions/MealActions";
 
 
 const Navigation = () => {
+	const dispatch = useDispatch();
 
+	const toggleItemToFav = (id) => {
+		// console.log(id)
+		dispatch(addFavoriteAction(id));
+	};
+	const { favoriteMeals } = useSelector((state) => state.meals);
+	console.log(favoriteMeals.length);
 	return (
-		<Stack.Navigator  initialRouteName="Categories">
-		  <Stack.Screen 
-			name="Categories" 
-			component={CategoriesScreen}
-			options={{
-				title:"Meal Categories"
-			}}
-		  />
-		  <Stack.Screen 
-		  	name="Meals" 
-			component={CategoriesMealsScreen}
-			options={({ route }) => ({ 
-				title: route.params.name,
-				headerStyle: {
-					backgroundColor: route.params.bar
-				},
-				headerTintColor: Colors.white
-			})}
+		<Stack.Navigator initialRouteName="Categories">
+			<Stack.Screen
+				name="Categories"
+				component={CategoriesScreen}
+				options={{
+					title: "Meal Categories",
+				}}
 			/>
-		  <Stack.Screen 
-		  	name="Details" 
-			component={MealDetailsScreen}
-			options={({ route }) => ({
-				headerStyle: {
-					backgroundColor: Platform.OS === "android" ? Colors.purple : "white"
-				},
-				headerTintColor: Platform.OS === "ios" ? Colors.purple : "white",
-				title: "Details Meals",
-				headerRight: ()=> <HeaderButtons HeaderButtonComponent={CustomHeader}>
-					<Item title="search" iconName="ios-star" onPress={() =>  console.log("added")} />
-				</HeaderButtons>
-			})}
+			<Stack.Screen
+				name="Meals"
+				component={CategoriesMealsScreen}
+				options={({ route }) => ({
+					title: route.params.name,
+					headerStyle: {
+						backgroundColor: route.params.bar,
+					},
+					headerTintColor: Colors.white,
+				})}
 			/>
-		  <Stack.Screen 
-		  	name="Favorite" 
-			component={FavoriteScreen}
-			options={({ route }) => ({
-				headerStyle: {
-					backgroundColor: Platform.OS === "android" ? Colors.purple : "white"
-				},
-				headerTintColor: Platform.OS === "ios" ? Colors.purple : "white",
-				title: "Favorite",
-				headerRight: ()=> <HeaderButtons HeaderButtonComponent={CustomHeader}>
-					<Item title="search" iconName="heart" onPress={() => alert('search')} />
-				</HeaderButtons>
-			})}
+			<Stack.Screen
+				name="Details"
+				component={MealDetailsScreen}
+				options={({ route }) => ({
+					headerStyle: {
+						backgroundColor:
+							Platform.OS === "android" ? Colors.purple : "white",
+					},
+					headerTintColor:
+						Platform.OS === "ios" ? Colors.purple : "white",
+					title: "Details Meals",
+					headerRight: () => (
+						<HeaderButtons HeaderButtonComponent={CustomHeader}>
+							<Item
+								title="add"
+								//  iconName="ios-star-outline"
+								iconName={
+									favoriteMeals.find(
+										(item) =>
+											item.id === route.params.itemData.id
+									)
+										? "ios-star"
+										: "ios-star-outline"
+								}
+								onPress={() =>
+									toggleItemToFav(route.params.itemData.id)
+								}
+							/>
+						</HeaderButtons>
+					),
+				})}
+			/>
+			<Stack.Screen
+				name="Favorite"
+				component={FavoriteScreen}
+				options={({ route }) => ({
+					headerStyle: {
+						backgroundColor:
+							Platform.OS === "android" ? Colors.purple : "white",
+					},
+					headerTintColor:
+						Platform.OS === "ios" ? Colors.purple : "white",
+					title: "Favorite",
+					headerRight: () => (
+						<HeaderButtons HeaderButtonComponent={CustomHeader}>
+							<Item
+								title="search"
+								iconName="heart"
+								onPress={() => alert("search")}
+							/>
+						</HeaderButtons>
+					),
+				})}
 			/>
 		</Stack.Navigator>
-	)
+	);
 }
 const FavoriteNavigation = () => {
 	return (
-		<Stack.Navigator  initialRouteName="Categories">
-		  <Stack.Screen 
-		  	name="Favorite" 
-			component={FavoriteScreen}
-			options={({ route }) => ({
-				headerStyle: {
-					backgroundColor: Platform.OS === "android" ? Colors.purple : "white"
-				},
-				headerTintColor: Platform.OS === "ios" ? Colors.purple : "white",
-				title: "Favorite",
-				headerRight: ()=> <HeaderButtons HeaderButtonComponent={CustomHeader}>
-					<Item title="search" iconName="ios-star" onPress={() => alert('search')} />
-				</HeaderButtons>
-			})}
+		<Stack.Navigator initialRouteName="Categories">
+			<Stack.Screen
+				name="Favorite"
+				component={FavoriteScreen}
+				options={({ route }) => ({
+					headerStyle: {
+						backgroundColor:
+							Platform.OS === "android" ? Colors.purple : "white",
+					},
+					headerTintColor:
+						Platform.OS === "ios" ? Colors.purple : "white",
+					title: "Favorite",
+				})}
 			/>
 		</Stack.Navigator>
-	)
+	);
 }
 const FilterNavigation = () => {
 	return (
