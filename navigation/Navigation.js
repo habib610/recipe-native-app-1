@@ -26,11 +26,9 @@ const Navigation = () => {
 	const dispatch = useDispatch();
 
 	const toggleItemToFav = (id) => {
-		// console.log(id)
 		dispatch(addFavoriteAction(id));
 	};
 	const { favoriteMeals } = useSelector((state) => state.meals);
-	console.log(favoriteMeals.length);
 	return (
 		<Stack.Navigator initialRouteName="Categories">
 			<Stack.Screen
