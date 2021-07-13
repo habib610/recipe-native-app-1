@@ -19,14 +19,14 @@ const CategoriesScreen = ({navigation}) => {
 					itemData={itemData} />)
 	}
 	return (
-		<FlatList 
-		contentContainerStyle={{
-			backgroundColor: Colors.white
-		}}
-		data={CATEGORIES}
-		keyExtractor={item => item.id}
-		numColumns={2}
-		renderItem={renderGridList}
+		<FlatList
+			contentContainerStyle={{
+				backgroundColor: Colors.white,
+			}}
+			data={CATEGORIES}
+			keyExtractor={(item) => item.id}
+			numColumns={2}
+			renderItem={renderGridList}
 		/>
 	);
 };
